@@ -28,20 +28,36 @@ class Hospital( object ):
         print "There are currently", len( self.patients ), "patients in the hospital."
         return self
 
-        # print self.patients
-        # print self.patients[0].name
-        # print self.patients[0].allergies
-        # print self.patients[0].id
-        # print self.patients[0].bedNr
+    def printPatientList( self ):
+        print "List of all patients:"
+        for i in self.patients:
+            print i.name, "bed: ", i.bedNr, "id: ", i.id
+        return self
 
+    def discharge( self, patientName ):
+        print "Discharging", patientName, "..."
+        for i in range ( 0, len( self.patients) ):
+            if self.patients[i].name == patientName:
+                print "Patient discharged"
+                self.patients.pop(i)
+                self.bedCount -= 1
+                self.printPatientList()
+                return self
+        print "Error:", patientName, "was not found in the list. Discharge failed."
+        return self
 
 
 patient1 = Patient( "Danny", "milk" )
 patient2 = Patient( "Stan", "none" )
-patient3 = Patient( "George", "dust" )
-patient4 = Patient( "Nataly", "none" )
-
+patient3 = Patient( "Nataly", "dust" )
+patient4 = Patient( "George", "none" )
 
 SaintLuke = Hospital( "Saint Luke", 3 )
 
 SaintLuke.admit( patient1 )
+SaintLuke.admit( patient2 )
+SaintLuke.admit( patient3 )
+SaintLuke.admit( patient4 )
+
+SaintLuke.discharge( "Stan" )
+SaintLuke.discharge( "Nataly" )
